@@ -1,9 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import { createInertiaApp } from '@inertiajs/react';
+import { InertiaProgress } from '@inertiajs/progress';
+import { createRoot } from 'react-dom/client';
 import "../css/app.css";
 
-const App = () => {
-    return <h1 className="text-3xl font-bold text-center">Hello from React + Tailwind!</h1>;
-};
+InertiaProgress.init(); // Initialize Inertia progress bar
 
-ReactDOM.createRoot(document.getElementById("app")!).render(<App />);
+createInertiaApp({
+    resolve: (name) =>
+        import(`./pages/${name}.tsx`), // Instead of resolvePageComponent
+    setup({ el, App, props }) {
+        console.log("Inertia App Props:", props);
+        createRoot(el).render(<App {...props} />);
+    },
+});

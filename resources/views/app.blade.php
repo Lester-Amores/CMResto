@@ -6,8 +6,11 @@
     <title>Laravel + React</title>
     @viteReactRefresh 
     @vite('resources/js/app.tsx')
+    @inertiaHead
+
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app" data-page="{{ json_encode($page) }}"></div>
+    @inertia
 </body>
 </html>
