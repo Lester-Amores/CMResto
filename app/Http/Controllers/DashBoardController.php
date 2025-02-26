@@ -11,4 +11,5 @@ class DashBoardController extends Controller
     {
         return Inertia::render('dashboard');
     }
+    
 }

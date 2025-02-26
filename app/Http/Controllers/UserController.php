@@ -14,6 +14,9 @@ class UserController extends Controller
 
     public function loginPage()
     {
+        if (auth()->check()) {
+            return Inertia::location(route('auth.dashboard'));
+        }
         return Inertia::render('login');
     }
 }

@@ -1,20 +1,12 @@
 import MainLayout from "../layouts/MainLayout";
-import { usePage, useForm } from "@inertiajs/react";
-import { useEffect } from "react";
+import { useForm } from "@inertiajs/react";
 
 export default function LogInPage() {
-    const { auth } = usePage<{ auth: { user: { id: number; email: string } | null } }>().props;
     type ErrorType = Partial<Record<"email" | "password" | "general", string>>;
     const { data, setData, post, processing, errors } = useForm<ErrorType>({
         email: "",
         password: ""
     });
-
-    useEffect(() => {
-        if (auth?.user) {
-            window.location.href = "/dashboard";
-        }
-    }, [auth]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
