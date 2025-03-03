@@ -17,20 +17,16 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return Inertia::location('/dashboard');
+            return response()->json(['message' => 'Username or password is incorrect.'], 200);
         }
 
-        return Inertia::render('login', [
-            'errors' => [
-                'general' => 'Username or password is incorrect. Please try again.',
-            ]
-        ]);
+        return response()->json(['error' => 'Username or password is incorrect.'], 422);
     }
 
     public function logout(Request $request)
     {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return Inertia::location('/login');
+        return Inertia::location('/Login');
     }
 }

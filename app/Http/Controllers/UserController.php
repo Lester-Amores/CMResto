@@ -9,7 +9,7 @@ class UserController extends Controller
     public function sendName() 
     {
         $name = 'lester'; 
-        return Inertia::render('home', ['name' => $name]);
+        return Inertia::render('Home', ['name' => $name]);
     }
 
     public function loginPage()
@@ -17,6 +17,6 @@ class UserController extends Controller
         if (auth()->check()) {
             return Inertia::location(route('auth.dashboard'));
         }
-        return Inertia::render('login');
+        return Inertia::render('Login');
     }
 }

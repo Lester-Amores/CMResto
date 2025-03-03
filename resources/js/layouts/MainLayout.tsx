@@ -7,14 +7,15 @@ interface LayoutProps {
     children: ReactNode;
 }
 
-export default function MainLayout({ title, children }: LayoutProps) {
+export default function MainLayout({ children }: LayoutProps) {
     const { auth, currentRoute } = usePage<SharedProps>().props;
     const isAuthenticated = !!auth.user;
     const isAuthPage = currentRoute?.startsWith("auth.");
+    const pageTitle = currentRoute === "dashboard" ? "Dashboard" : "Admin Panel";
 
     return (
         <>
-            <Head title={title || "Admin Panel"} />
+            <Head title={pageTitle} />
 
             <header className="bg-blue-600 text-white h-16">
                 <nav className="container mx-auto flex justify-between items-center h-full">
@@ -33,7 +34,7 @@ export default function MainLayout({ title, children }: LayoutProps) {
                 </nav>
             </header>
 
-            <main className="container mx-auto p-4">
+            <main className="container mx-auto p-4 min-h-screen">
                 {isAuthPage && !isAuthenticated ? (
                     <div className="text-center text-red-500 font-semibold text-lg">
                         You must be logged in to access this page. <br />
