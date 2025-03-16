@@ -1,4 +1,3 @@
-import MainLayout from "../layouts/MainLayout";
 
 export default function Dashboard() {
     return (
@@ -8,5 +7,3 @@ export default function Dashboard() {
         </>
     );
 }
-
-Dashboard.layout = (page: React.ReactNode) => <MainLayout>{page}</MainLayout>;

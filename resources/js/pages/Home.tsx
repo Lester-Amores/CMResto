@@ -1,4 +1,3 @@
-import MainLayout from "../layouts/MainLayout";
 
 export default function Home({ name }: { name: string }) {
     return (
@@ -8,5 +7,3 @@ export default function Home({ name }: { name: string }) {
         </>
     );
 }
-
-Home.layout = (page: React.ReactNode) => <MainLayout>{page}</MainLayout>;

@@ -15,18 +15,17 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return response()->json(['message' => 'Username or password is incorrect.'], 200);
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors(['error' => 'Invalid email or password.']);
         }
-
-        return response()->json(['error' => 'Username or password is incorrect.'], 422);
+        $request->session()->regenerate();
+        return redirect()->intended('/dashboard');
     }
 
     public function logout(Request $request)
     {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return Inertia::location('/Login');
+        return redirect()->route('login');
     }
 }

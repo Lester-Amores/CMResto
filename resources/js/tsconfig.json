@@ -1,12 +1,18 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "ESNext",
-      "lib": ["DOM", "ESNext"],
-      "jsx": "react-jsx",
-      "allowJs": true,
-      "moduleResolution": "bundler",  // Use "bundler" instead of "nodenext"
-      "strict": true
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "strict": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "baseUrl": "./resources/js",
+    "paths": {
+      "@/*": ["./*"]
     }
   }
-  
+}

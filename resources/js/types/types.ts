@@ -6,4 +6,7 @@ export interface SharedProps extends Record<string, any> {
         } | null;
     };
     currentRoute: string | null;
+    errors: Partial<Record<"email" | "password", string>> & {
+        error?: string;
+    };
 }
