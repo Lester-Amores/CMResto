@@ -7,6 +7,7 @@ export interface SharedProps extends Record<string, any> {
         user: {
             id: number;
             email: string;
+            name: string;
         } | null;
     };
     currentRoute: string | null;
