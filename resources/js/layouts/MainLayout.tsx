@@ -10,13 +10,14 @@ export default function MainLayout({ children }: LayoutProps) {
     const { auth, currentRoute } = usePage<SharedProps>().props;
     const isAuthenticated = !!auth.user;
     const isAuthPage = currentRoute?.startsWith("auth.");
+    const isPublicPage = currentRoute?.startsWith("public.");
     const pageTitle = currentRoute === "dashboard" ? "Dashboard" : "Admin Panel";
 
     return (
         <>
             <Head title={pageTitle} />
 
-            {isAuthPage && !isAuthenticated && <Header />}
+            {isPublicPage && <Header />}
 
             <div className="flex h-screen bg-gray-50 text-gray-900 font-sans">
                 {isAuthPage && isAuthenticated && (
@@ -30,7 +31,7 @@ export default function MainLayout({ children }: LayoutProps) {
                 </main>
             </div>
 
-            {isAuthPage && !isAuthenticated && <Footer />}
+            {isPublicPage && <Footer />}
         </>
     );
 }

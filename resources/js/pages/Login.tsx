@@ -1,12 +1,14 @@
 import { useForm } from "@inertiajs/react";
 
 
+const defaultLoginForm = {
+    email: "",
+    password: "",
+    error: "",
+};
+
 export default function LogInPage() {
-    const { data, setData, post, processing, errors } = useForm({
-        email: "",
-        password: "",
-        error: "",
-    });
+    const { data, setData, post, processing, errors } = useForm(defaultLoginForm);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -14,7 +16,7 @@ export default function LogInPage() {
     };
     return (
         <div className="flex justify-center items-center min-h-screen">
-            <div className="px-10 py-6 bg-white shadow-lg rounded-2xl w-96">
+            <div className="px-10 py-6 rounded-2xl w-96">
                 <h2 className="text-center mb-6 text-2xl font-bold">Login</h2>
                 {errors.error && <p className="text-red-500 text-xs text-center mb-2">{errors.error}</p>}
 
@@ -40,7 +42,7 @@ export default function LogInPage() {
                             value={data.password}
                             onChange={(e) => setData("password", e.target.value)}
                             className="w-full px-2 py-1 border rounded-md focus:ring-2 focus:ring-blue-400 outline-none"
-                            placeholder="Enter your password"
+                            placeholder="Enter Password"
                         />
                         {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
                     </div>
