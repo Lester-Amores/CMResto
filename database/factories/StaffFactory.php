@@ -21,12 +21,11 @@ class StaffFactory extends Factory
             'address' => $this->faker->address(),
             'position_id' => null,
             'salary' => $this->faker->randomFloat(2, 20000, 80000),
-            'employment_status' => $this->faker->rand(0, 2),
+            'employment_status' => $this->faker->randomElement([0, 2]),
             'emergency_contact_name' => $this->faker->name(),
             'emergency_contact_number' => $this->faker->phoneNumber(),
             'emergency_contact_relationship' => Arr::random(['Parent', 'Sibling', 'Spouse', 'Friend', 'Guardian', 'Relative']),
-            'gender' => $this->faker->rand(0, 1),
-            'notes' => $this->faker->sentence(),
+            'gender' => $this->faker->randomElement([0, 1]),
         ];
     }
 }

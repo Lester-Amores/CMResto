@@ -2,60 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StaffRequest;
-use App\Models\Staff;
-use App\Services\StaffService;
+use App\Http\Requests\BranchRequest;
+use App\Models\Branch;
+use App\Services\BranchService;
 use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class StaffController extends Controller
+class BranchController extends Controller
 {
-    protected StaffService $staffService;
+    protected BranchService $branchService;
 
-    public function __construct(StaffService $staffService)
+    public function __construct(BranchService $branchService)
     {
-        $this->staffService = $staffService;
+        $this->branchService = $branchService;
     }
 
     public function index(Request $request)
     {
-        $staff = $this->staffService->getStaff($request);
+        $branches = $this->branchService->getBranch($request);
         $data = [
-            'staff' => $staff->items(),
-            'current_page' => $staff->currentPage(),
-            'total_pages' => $staff->lastPage(),
-            'total_rows' => $staff->total(),
-            'per_page' => $staff->perPage(),
+            'branches' => $branches->items(),
+            'current_page' => $branches->currentPage(),
+            'total_pages' => $branches->lastPage(),
+            'total_rows' => $branches->total(),
+            'per_page' => $branches->perPage(),
         ];
 
         return Inertia::render('Staff/Index', $data);
     }
 
-    public function store(StaffRequest $request)
+    public function store(BranchRequest $request)
     {
         $validated = $request->validated();
-        Staff::create($validated);
+        Branch::create($validated);
         return redirect()->back()->with('success', 'Successfully created');
     }
 
-    public function show(Staff $staff)
+    public function show(Branch $branch)
     {
-        return Inertia::render('Staff/Show', $staff);
+        return Inertia::render('Staff/Show', $branch);
     }
 
-    public function update(StaffRequest $request, Staff $staff)
+    public function update(BranchRequest $request, Branch $branch)
     {
         $validated = $request->validated();
-        $staff->update($validated);
+        $branch->update($validated);
 
         return redirect()->back()->with('success', 'Successfully updated');
     }
 
-    public function destroy(Staff $staff)
+    public function destroy(Branch $branch)
     {
         try{
-        $staff->delete();
+        $branch->delete();
         return redirect()->back()->with('success', 'Staff deleted successfully');
         } catch (Exception $e){
             return redirect()->back()->with('error', 'Deletion failed');
@@ -65,8 +65,8 @@ class StaffController extends Controller
     public function restore(Request $request)
     {
         try {
-        $staff = Staff::withTrashed()->findOrFail($request->id);
-        $staff->restore();
+        $branch = Branch::withTrashed()->findOrFail($request->id);
+        $branch->restore();
         return redirect()->back()->with('success', 'Staff restored successfully');
         } catch (Exception $e){
             return redirect()->back()->with('error', 'restoration failed');
@@ -81,7 +81,7 @@ class StaffController extends Controller
                 'ids' => 'required|array',
                 'ids.*' => 'integer|exists:clients,id',
             ]);
-            Staff::whereIn('id', $ids)->delete();
+            Branch::whereIn('id', $ids)->delete();
             return redirect()->back()->with('success', 'Staff deleted Successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Deletion failed');
@@ -97,7 +97,7 @@ class StaffController extends Controller
                 'ids.*' => 'integer|exists:clients,id',
             ]);
 
-            Staff::onlyTrashed()->whereIn('id', $ids)->restore();
+            Branch::onlyTrashed()->whereIn('id', $ids)->restore();
 
             return redirect()->back()->with('success', 'Staff restored successfully');
         } catch (\Exception $e) {
